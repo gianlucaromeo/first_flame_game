@@ -31,7 +31,7 @@ class ResultScreen extends StatelessWidget {
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
                     fontSize: 40,
-                    color: Colors.white,
+                    color: Colors.yellowAccent,
                     shadows: [
                       Shadow(
                         blurRadius: 10.0,
@@ -42,7 +42,7 @@ class ResultScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 45),
               Text(
                 'Your score: $score',
                 style: GoogleFonts.pressStart2p(
@@ -59,7 +59,7 @@ class ResultScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 45),
               ElevatedButton(
                 onPressed: () {
                   Get.back();

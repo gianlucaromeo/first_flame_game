@@ -11,7 +11,7 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
       : super(
           fixtureDefs: [
             FixtureDef(
-              PolygonShape()..setAsBoxXY(4, 4),
+              PolygonShape()..setAsBoxXY(3.5, 3.5),
               restitution: 0.2,
               friction: 0.4,
             ),
@@ -50,12 +50,12 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    // Draw the player square with the glowing effect
+    // Draw the player inner square ("circle..") with the glowing effect
     canvas.drawRect(
       Rect.fromCenter(
         center: Offset.zero,
-        width: 8,
-        height: 8,
+        width: 6,
+        height: 6,
       ),
       _playerPaint,
     );
@@ -64,13 +64,13 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
     final borderPaint = Paint()
       ..color = Colors.purpleAccent
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.2;
+      ..strokeWidth = 0.3;
 
     canvas.drawRect(
       Rect.fromCenter(
         center: Offset.zero,
-        width: 8,
-        height: 8,
+        width: 6,
+        height: 6,
       ),
       borderPaint,
     );
@@ -81,8 +81,8 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
     super.update(dt);
     body.applyLinearImpulse(Vector2(0, 10));
 
-    final halfHeight = game.camera.visibleWorldRect.height / 2;
-    if (body.position.x < -halfHeight) {
+    final halfWidth = game.camera.visibleWorldRect.width / 2;
+    if (body.position.x < -halfWidth || body.position.x > halfWidth) {
       game.finishGame();
     }
   }

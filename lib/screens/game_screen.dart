@@ -42,19 +42,6 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text(
-                'Physics Tap Game',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
               child: ScoreCard(score: _game.score),
             ),
             Expanded(
