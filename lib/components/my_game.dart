@@ -1,7 +1,7 @@
 import 'dart:async' as dart_async;
 import 'dart:math';
 
-import 'package:first_flame_game/enemy.dart';
+import 'package:first_flame_game/components/enemy.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
@@ -58,9 +58,9 @@ class MyGame extends Forge2DGame {
 
     return [
       Wall(topLeft, topRight),
-      Wall(topRight, bottomRight),
+      //Wall(topRight, bottomRight),
       Wall(bottomLeft, bottomRight),
-      Wall(topLeft, bottomLeft),
+      //Wall(topLeft, bottomLeft),
     ];
   }
 }

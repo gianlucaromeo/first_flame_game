@@ -2,7 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../my_game.dart';
+import '../components/my_game.dart';
 import 'result_screen.dart';
 
 

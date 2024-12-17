@@ -1,4 +1,7 @@
-import 'package:first_flame_game/player.dart';
+import 'dart:developer';
+
+import 'package:first_flame_game/components/player.dart';
+import 'package:first_flame_game/components/wall.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +25,7 @@ class Enemy extends BodyComponent<MyGame> with ContactCallbacks {
   Body createBody() {
     final bodyDef = BodyDef(
       position: initialPosition,
-      type: BodyType.kinematic,
+      type: BodyType.dynamic,
       userData: this,
       linearVelocity: Vector2(-speed, 0), // Faster movement
     );
@@ -40,16 +43,17 @@ class Enemy extends BodyComponent<MyGame> with ContactCallbacks {
   void update(double dt) {
     super.update(dt);
 
-    if (position.x < camera.visibleWorldRect.left - 10) {
-      removeFromParent();
-      // game.addEnemy();
+    final halfWidth = game.camera.visibleWorldRect.width / 2;
+    if (body.position.x < -halfWidth) {
+      //game.incrementScore();
+      log('Enemy removed');
+      world.remove(this);
     }
   }
 
   @override
   void beginContact(Object other, Contact contact) {
     if (other is Player) {
-      removeFromParent();
       game.finishGame();
     }
   }

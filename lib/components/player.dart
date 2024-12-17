@@ -1,7 +1,9 @@
 import 'package:flame/events.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 
-class Player extends BodyComponent with TapCallbacks {
+import 'my_game.dart';
+
+class Player extends BodyComponent<MyGame> with TapCallbacks {
   Player({Vector2? initialPosition})
       : super(
     fixtureDefs: [
@@ -32,6 +34,7 @@ class Player extends BodyComponent with TapCallbacks {
 
   @override
   void onTapDown(_) {
+    body.setAwake(true);
     body.applyLinearImpulse(Vector2(0, -1000));
   }
 }
