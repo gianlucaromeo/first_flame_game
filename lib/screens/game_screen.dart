@@ -48,6 +48,7 @@ class _GameScreenState extends State<GameScreen> {
               child: ScoreCard(
                 score: _game.score,
                 level: widget.level,
+                secondsLeftToCompleteLevel: _game.secondsLeftToCompleteLevel,
               ),
             ),
             Expanded(

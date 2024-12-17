@@ -7,9 +7,11 @@ class ScoreCard extends StatelessWidget {
     super.key,
     required this.score,
     required this.level,
+    required this.secondsLeftToCompleteLevel,
   });
 
   final ValueNotifier<int> score;
+  final ValueNotifier<int> secondsLeftToCompleteLevel;
   final int level;
 
   @override
@@ -26,6 +28,20 @@ class ScoreCard extends StatelessWidget {
               GameText(
                 text: 'SCORE : $score'.toUpperCase(),
               ),
+              const SizedBox(height: 12),
+              secondsLeftToCompleteLevel.value == 0
+                  ? GameText(
+                      text: 'Level Complete!',
+                    )
+                  : Text(
+                      '${secondsLeftToCompleteLevel.value} more seconds to complete level'
+                          .toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ],
           ),
         );

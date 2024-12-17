@@ -17,6 +17,7 @@ import 'wall.dart';
 class MyGame extends Forge2DGame with TapCallbacks {
   final Function(int) onGameOver;
   final ValueNotifier<int> score = ValueNotifier(0);
+  final ValueNotifier<int> secondsLeftToCompleteLevel = ValueNotifier(10);
 
   bool isGameOver = false;
   final int level;
@@ -49,6 +50,17 @@ class MyGame extends Forge2DGame with TapCallbacks {
 
     // Add enemies based on the level
     startTimer(level);
+
+    // Timer that every sec decrements the seconds left to complete the level
+    dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (secondsLeftToCompleteLevel.value > 0) {
+        secondsLeftToCompleteLevel.value--;
+      } else {
+        final currentHighestLevel = UserData.getLevelsCompleted();
+        final newHighestLevel = max(currentHighestLevel, level);
+        UserData.setLevelsCompleted(newHighestLevel);
+      }
+    });
   }
 
   dart_async.Timer? _timer;
@@ -80,6 +92,7 @@ class MyGame extends Forge2DGame with TapCallbacks {
 
   void finishGame() {
     if (!isGameOver) {
+      secondsLeftToCompleteLevel.value = 0;
       onGameOver(score.value);
       UserData.incrementTotalGamesPlayed();
     }
