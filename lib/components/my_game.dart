@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:first_flame_game/components/enemy.dart';
 import 'package:first_flame_game/components/gradient_background.dart';
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
@@ -19,17 +20,22 @@ class MyGame extends Forge2DGame {
   MyGame({required this.onGameOver})
       : super(
           gravity: Vector2(0, 10.0),
-          camera: CameraComponent.withFixedResolution(
-            width: 800,
-            height: 640,
-          ),
+          camera: CameraComponent(),
         );
 
   @override
   Future<void> onLoad() async {
-    await super.onLoad();
+    super.onLoad();
 
-    //camera.viewport.add(FpsTextComponent());
+    // Get screen size
+    final screenSize = size; // size is automatically provided by Flame
+
+    // Adjust camera to fit the screen size dynamically
+    camera.viewport = FixedResolutionViewport(
+      resolution: Vector2(screenSize.x, screenSize.y),
+    );
+
+    // Add components
     await world.add(GradientBackground());
     await world.add(Player());
     await world.addAll(createBoundaries());
@@ -67,9 +73,7 @@ class MyGame extends Forge2DGame {
 
     return [
       Wall(topLeft, topRight),
-      // Wall(topRight, bottomRight),
       Wall(bottomLeft, bottomRight),
-      // Wall(topLeft, bottomLeft),
     ];
   }
 }

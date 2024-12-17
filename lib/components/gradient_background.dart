@@ -8,10 +8,9 @@ class GradientBackground extends Component with HasGameReference<MyGame> {
   GradientBackground()
       : _backgroundPaint = Paint()
           ..shader = LinearGradient(
-            //colors: [Colors.purple.shade900, Colors.purple.shade600],
-            colors: [Colors.black87, Colors.black54],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
+            colors: [Colors.black, Colors.purple.shade900],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ).createShader(Rect.fromCircle(center: Offset.zero, radius: 25));
 
   @override
