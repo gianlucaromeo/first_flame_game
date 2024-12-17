@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
+import '../widgets/game_button.dart';
+
 class ResultScreen extends StatelessWidget {
   const ResultScreen({
     super.key,
@@ -60,32 +62,11 @@ class ResultScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 45),
-              ElevatedButton(
+              GameButton(
                 onPressed: () {
                   Get.back();
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple.shade700,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 15,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 10,
-                  shadowColor: Colors.purpleAccent,
-                ),
-                child: Text(
-                  'Play Again',
-                  style: GoogleFonts.pressStart2p(
-                    textStyle: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                text: 'PLAY AGAIN',
               ),
             ],
           ),

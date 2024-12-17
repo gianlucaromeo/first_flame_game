@@ -1,3 +1,4 @@
+import 'package:first_flame_game/widgets/game_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,32 +41,11 @@ class WelcomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
-              ElevatedButton(
+              GameButton(
                 onPressed: () {
                   Get.to(() => const GameScreen());
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple.shade700,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40,
-                    vertical: 15,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 10,
-                  shadowColor: Colors.purpleAccent,
-                ),
-                child: Text(
-                  'START',
-                  style: GoogleFonts.pressStart2p(
-                    textStyle: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                text: 'START',
               ),
             ],
           ),
