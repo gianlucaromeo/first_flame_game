@@ -33,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(height: 40),
               GameButton(
                 onPressed: () {
-                  Get.to(() => const GameScreen());
+                  Get.offAll(() => const GameScreen());
                 },
                 text: 'START',
               ),

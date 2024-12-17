@@ -140,7 +140,7 @@ packages:
     source: hosted
     version: "6.2.1"
   hive_ce:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: hive_ce
       sha256: "2d66fa89a3e33e6d95edcf6c75409cf8f6442ab46229c9baf423af479f532e99"

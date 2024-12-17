@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:first_flame_game/components/enemy.dart';
 import 'package:first_flame_game/components/gradient_background.dart';
+import 'package:first_flame_game/services/local_storage_service.dart';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -15,6 +16,8 @@ import 'wall.dart';
 class MyGame extends Forge2DGame with TapCallbacks{
   final Function(int) onGameOver;
   final ValueNotifier<int> score = ValueNotifier(0);
+
+  bool isGameOver = false;
 
   late final Player player;
 
@@ -48,11 +51,18 @@ class MyGame extends Forge2DGame with TapCallbacks{
   }
 
   void finishGame() {
-    onGameOver(score.value);
+    if (!isGameOver) {
+      onGameOver(score.value);
+      UserData.incrementTotalGamesPlayed();
+    }
+    isGameOver = true;
   }
 
   void incrementScore() {
     score.value++;
+    if (UserData.getBestScore() < score.value) {
+      UserData.setBestScore(score.value);
+    }
   }
 
   Future<void> addEnemy() async {

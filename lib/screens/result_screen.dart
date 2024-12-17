@@ -1,3 +1,4 @@
+import 'package:first_flame_game/screens/welcome_screen.dart';
 import 'package:first_flame_game/widgets/game_text.dart';
 import 'package:first_flame_game/widgets/statistics.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class ResultScreen extends StatelessWidget {
               const SizedBox(height: 80),
               GameButton(
                 onPressed: () {
-                  Get.back();
+                  Get.offAll(() => const WelcomeScreen());
                 },
                 text: 'PLAY AGAIN',
               ),
