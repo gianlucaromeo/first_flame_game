@@ -110,11 +110,12 @@ class MyGame extends Forge2DGame with TapCallbacks {
   }
 
   Future<void> addEnemy() async {
+    final currentHeight = camera.visibleWorldRect.height;
     await world.add(
       Enemy(
         initialPosition: Vector2(
           camera.visibleWorldRect.right,
-          camera.visibleWorldRect.bottom - Random().nextInt(100).toDouble(),
+          camera.visibleWorldRect.top + Random().nextDouble() * currentHeight,
         ),
       ),
     );
