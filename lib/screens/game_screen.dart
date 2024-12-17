@@ -8,7 +8,9 @@ import '../components/my_game.dart';
 import 'result_screen.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  const GameScreen({super.key, required this.level});
+
+  final int level;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -24,6 +26,7 @@ class _GameScreenState extends State<GameScreen> {
       onGameOver: (int score) {
         Get.off(() => ResultScreen(score: score));
       },
+      level: widget.level,
     );
   }
 
@@ -42,7 +45,10 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: ScoreCard(score: _game.score),
+              child: ScoreCard(
+                score: _game.score,
+                level: widget.level,
+              ),
             ),
             Expanded(
               child: GameWidget(game: _game),

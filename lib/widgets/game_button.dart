@@ -6,18 +6,20 @@ class GameButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.text,
+    this.disabled = false,
   });
 
   final Function onPressed;
   final String text;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
 
     return ElevatedButton(
-      onPressed: () => onPressed.call(),
-      style: ElevatedButton.styleFrom(
+      onPressed: disabled ? null : () => onPressed.call(),
+      style: !disabled ? ElevatedButton.styleFrom(
         backgroundColor: Colors.purple.shade700,
         padding: const EdgeInsets.symmetric(
           horizontal: 54,
@@ -28,24 +30,41 @@ class GameButton extends StatelessWidget {
         ),
         elevation: 10,
         shadowColor: Colors.purpleAccent,
-      ),
+      )
+      : null,
       child: Text(
         text,
         textAlign: TextAlign.center,
         style: GoogleFonts.pressStart2p(
-          textStyle: TextStyle(
-            fontSize: deviceSize.width > 640 ? 36 :  deviceSize.width * 0.04,
-            color: Colors.yellowAccent,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
-            shadows: [
-              Shadow(
-                blurRadius: 10.0,
-                color: Colors.purpleAccent,
-                offset: Offset(2.0, 2.0),
-              ),
-            ],
-          ),
+          textStyle: disabled
+              ? TextStyle(
+                  fontSize:
+                      deviceSize.width > 640 ? 36 : deviceSize.width * 0.04,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10.0,
+                      color: Colors.purpleAccent,
+                      offset: Offset(2.0, 2.0),
+                    ),
+                  ],
+                )
+              : TextStyle(
+                  fontSize:
+                      deviceSize.width > 640 ? 36 : deviceSize.width * 0.04,
+                  color: Colors.yellowAccent,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10.0,
+                      color: Colors.purpleAccent,
+                      offset: Offset(2.0, 2.0),
+                    ),
+                  ],
+                ),
         ),
       ),
     );

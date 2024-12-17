@@ -1,3 +1,4 @@
+import 'package:first_flame_game/services/local_storage_service.dart';
 import 'package:first_flame_game/widgets/game_button.dart';
 import 'package:first_flame_game/widgets/statistics.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +32,17 @@ class WelcomeScreen extends StatelessWidget {
                 text: 'R E A D Y ?',
               ),
               const SizedBox(height: 40),
-              GameButton(
-                onPressed: () {
-                  Get.offAll(() => const GameScreen());
-                },
-                text: 'START',
-              ),
+              for (var i = 1; i <= 3; i++)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: GameButton(
+                    text: 'Level $i',
+                    onPressed: () {
+                      Get.to(() => GameScreen(level: i));
+                    },
+                    disabled: UserData.getLevelsCompleted() < i - 1,
+                  ),
+                ),
             ],
           ),
         ),

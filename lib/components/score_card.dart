@@ -1,13 +1,16 @@
+import 'package:first_flame_game/widgets/game_text.dart';
+import 'package:first_flame_game/widgets/game_title.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ScoreCard extends StatelessWidget {
   const ScoreCard({
     super.key,
     required this.score,
+    required this.level,
   });
 
   final ValueNotifier<int> score;
+  final int level;
 
   @override
   Widget build(BuildContext context) {
@@ -15,24 +18,15 @@ class ScoreCard extends StatelessWidget {
       valueListenable: score,
       builder: (context, score, child) {
         return Padding(
-          padding: const EdgeInsets.fromLTRB(12, 6, 12, 18),
-          child: Text(
-            'S C O R E : $score'.toUpperCase(),
-            style: GoogleFonts.pressStart2p(
-              textStyle: TextStyle(
-                fontSize: 24,
-                color: Colors.yellowAccent,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2,
-                shadows: [
-                  Shadow(
-                    blurRadius: 10.0,
-                    color: Colors.purpleAccent,
-                    offset: Offset(2.0, 2.0),
-                  ),
-                ],
+          padding: const EdgeInsets.fromLTRB(12, 24, 12, 24),
+          child: Column(
+            children: [
+              GameTitle(text: 'Level $level'),
+              const SizedBox(height: 24),
+              GameText(
+                text: 'SCORE : $score'.toUpperCase(),
               ),
-            ),
+            ],
           ),
         );
       },

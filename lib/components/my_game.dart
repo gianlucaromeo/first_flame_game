@@ -13,19 +13,21 @@ import 'package:flutter/material.dart';
 
 import 'player.dart';
 import 'wall.dart';
-class MyGame extends Forge2DGame with TapCallbacks{
+
+class MyGame extends Forge2DGame with TapCallbacks {
   final Function(int) onGameOver;
   final ValueNotifier<int> score = ValueNotifier(0);
 
   bool isGameOver = false;
+  final int level;
 
   late final Player player;
 
-  MyGame({required this.onGameOver})
+  MyGame({required this.onGameOver, required this.level})
       : super(
-    gravity: Vector2(0, 10.0),
-    camera: CameraComponent(),
-  );
+          gravity: Vector2(0, 10.0),
+          camera: CameraComponent(),
+        );
 
   @override
   Future<void> onLoad() async {
@@ -45,9 +47,35 @@ class MyGame extends Forge2DGame with TapCallbacks{
     await world.add(player);
     await world.addAll(createBoundaries());
 
-    dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
-      addEnemy();
-    });
+    // Add enemies based on the level
+    startTimer(level);
+  }
+
+  dart_async.Timer? _timer;
+
+  void startTimer(int level) {
+    // Cancel any existing timer before starting a new one
+    _timer?.cancel();
+
+    switch (level) {
+      case 1:
+        _timer = dart_async.Timer.periodic(const Duration(milliseconds: 1400), (timer) {
+          addEnemy();
+        });
+        break;
+      case 2:
+        _timer = dart_async.Timer.periodic(const Duration(milliseconds: 900), (timer) {
+          addEnemy();
+        });
+        break;
+      case 3:
+        _timer = dart_async.Timer.periodic(const Duration(milliseconds: 400), (timer) {
+          addEnemy();
+        });
+        break;
+      default:
+        break;
+    }
   }
 
   void finishGame() {
@@ -88,7 +116,6 @@ class MyGame extends Forge2DGame with TapCallbacks{
       Wall(bottomLeft, bottomRight),
     ];
   }
-
 
   @override
   void onTapDown(TapDownEvent event) {
