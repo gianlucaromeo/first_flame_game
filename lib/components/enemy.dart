@@ -1,14 +1,11 @@
 import 'dart:developer';
 
+import 'package:first_flame_game/components/body_component_with_data.dart';
 import 'package:first_flame_game/components/player.dart';
-import 'package:first_flame_game/components/wall.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 
-import 'my_game.dart';
-
-
-class Enemy extends BodyComponent<MyGame> with ContactCallbacks {
+class Enemy extends BodyComponentWithUserData with ContactCallbacks {
   final double radius;
   final Color color;
   final Vector2 initialPosition;
@@ -16,9 +13,9 @@ class Enemy extends BodyComponent<MyGame> with ContactCallbacks {
 
   Enemy({
     required this.initialPosition,
-    this.radius = 3,
+    this.radius = 3.0,
     this.color = Colors.red,
-    this.speed = 40, // Default speed
+    this.speed = 40.0, // Default speed
   });
 
   @override
@@ -45,7 +42,7 @@ class Enemy extends BodyComponent<MyGame> with ContactCallbacks {
 
     final halfWidth = game.camera.visibleWorldRect.width / 2;
     if (body.position.x < -halfWidth) {
-      //game.incrementScore();
+      game.incrementScore();
       log('Enemy removed');
       world.remove(this);
     }
@@ -53,8 +50,10 @@ class Enemy extends BodyComponent<MyGame> with ContactCallbacks {
 
   @override
   void beginContact(Object other, Contact contact) {
+    log('Enemy contact');
     if (other is Player) {
       game.finishGame();
     }
+    super.beginContact(other, contact);
   }
 }

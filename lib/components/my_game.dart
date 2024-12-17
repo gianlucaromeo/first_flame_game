@@ -12,7 +12,9 @@ import 'wall.dart';
 class MyGame extends Forge2DGame {
   final Function(int) onGameOver;
 
-  MyGame({required this.onGameOver})
+  int score = 0;
+
+  MyGame({required this.onGameOver, this.score = 0})
       : super(
           gravity: Vector2(0, 10.0),
           camera: CameraComponent.withFixedResolution(
@@ -26,8 +28,8 @@ class MyGame extends Forge2DGame {
     await super.onLoad();
 
     camera.viewport.add(FpsTextComponent());
-    world.add(Player());
-    world.addAll(createBoundaries());
+    await world.add(Player());
+    await world.addAll(createBoundaries());
 
     dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
       addEnemy();
@@ -35,7 +37,11 @@ class MyGame extends Forge2DGame {
   }
 
   void finishGame() {
-    onGameOver(0);
+    onGameOver(score);
+  }
+
+  void incrementScore() {
+    score++;
   }
 
   Future<void> addEnemy() async {
@@ -58,9 +64,9 @@ class MyGame extends Forge2DGame {
 
     return [
       Wall(topLeft, topRight),
-      //Wall(topRight, bottomRight),
+      // Wall(topRight, bottomRight),
       Wall(bottomLeft, bottomRight),
-      //Wall(topLeft, bottomLeft),
+      // Wall(topLeft, bottomLeft),
     ];
   }
 }
