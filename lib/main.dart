@@ -9,6 +9,7 @@ void main() {
 
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Forge2D First Game!',
       theme: ThemeData(
         primarySwatch: Colors.blue,

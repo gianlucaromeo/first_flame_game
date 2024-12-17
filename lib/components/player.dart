@@ -80,6 +80,11 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   void update(double dt) {
     super.update(dt);
     body.applyLinearImpulse(Vector2(0, 10));
+
+    final halfHeight = game.camera.visibleWorldRect.height / 2;
+    if (body.position.x < -halfHeight) {
+      game.finishGame();
+    }
   }
 
   @override
