@@ -19,6 +19,7 @@ class MyGame extends Forge2DGame with TapCallbacks {
   final ValueNotifier<int> score = ValueNotifier(0);
   final ValueNotifier<int> secondsLeftToCompleteLevel = ValueNotifier(10);
 
+  dart_async.Timer? _timesLeftTimer;
   bool isGameOver = false;
   final int level;
 
@@ -53,7 +54,7 @@ class MyGame extends Forge2DGame with TapCallbacks {
     startTimer(level);
 
     // Timer that every sec decrements the seconds left to complete the level
-    dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timesLeftTimer = dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
       if (secondsLeftToCompleteLevel.value > 0) {
         secondsLeftToCompleteLevel.value--;
       } else {
@@ -96,6 +97,7 @@ class MyGame extends Forge2DGame with TapCallbacks {
       secondsLeftToCompleteLevel.value = 0;
       onGameOver(score.value);
       UserData.incrementTotalGamesPlayed();
+      _timesLeftTimer?.cancel();
     }
     isGameOver = true;
   }
