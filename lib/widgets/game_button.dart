@@ -13,6 +13,8 @@ class GameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceSize = MediaQuery.of(context).size;
+
     return ElevatedButton(
       onPressed: () => onPressed.call(),
       style: ElevatedButton.styleFrom(
@@ -29,9 +31,10 @@ class GameButton extends StatelessWidget {
       ),
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: GoogleFonts.pressStart2p(
           textStyle: TextStyle(
-            fontSize: 24,
+            fontSize: deviceSize.width > 640 ? 36 :  deviceSize.width * 0.04,
             color: Colors.yellowAccent,
             fontWeight: FontWeight.bold,
             letterSpacing: 2,

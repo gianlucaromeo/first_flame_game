@@ -1,8 +1,10 @@
+import 'package:first_flame_game/widgets/game_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 import '../widgets/game_button.dart';
+import '../widgets/game_title.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({
@@ -28,38 +30,12 @@ class ResultScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'G A M E\nO V E R',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: TextStyle(
-                    fontSize: 40,
-                    color: Colors.yellowAccent,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.purpleAccent,
-                        offset: Offset(3.0, 3.0),
-                      ),
-                    ],
-                  ),
-                ),
+              GameTitle(
+                text: 'G A M E\nO V E R',
               ),
               const SizedBox(height: 45),
-              Text(
-                'Your score: $score',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.purpleAccent,
-                        offset: Offset(3.0, 3.0),
-                      ),
-                    ],
-                  ),
-                ),
+              GameText(
+                text: 'Your score: $score',
               ),
               const SizedBox(height: 45),
               GameButton(

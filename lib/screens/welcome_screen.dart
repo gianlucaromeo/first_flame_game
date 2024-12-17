@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../widgets/game_text.dart';
 import 'game_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -23,22 +24,8 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'R E A D Y ?',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: TextStyle(
-                    fontSize: 28,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.purple,
-                        offset: Offset(3.0, 3.0),
-                      ),
-                    ],
-                  ),
-                ),
-                textAlign: TextAlign.center,
+              GameText(
+                text: 'R E A D Y ?',
               ),
               const SizedBox(height: 40),
               GameButton(
