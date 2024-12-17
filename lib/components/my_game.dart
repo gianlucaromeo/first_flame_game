@@ -5,6 +5,7 @@ import 'package:first_flame_game/components/enemy.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flutter/material.dart';
 
 import 'player.dart';
 import 'wall.dart';
@@ -12,9 +13,9 @@ import 'wall.dart';
 class MyGame extends Forge2DGame {
   final Function(int) onGameOver;
 
-  int score = 0;
+  final ValueNotifier<int> score = ValueNotifier(0);
 
-  MyGame({required this.onGameOver, this.score = 0})
+  MyGame({required this.onGameOver})
       : super(
           gravity: Vector2(0, 10.0),
           camera: CameraComponent.withFixedResolution(
@@ -27,7 +28,7 @@ class MyGame extends Forge2DGame {
   Future<void> onLoad() async {
     await super.onLoad();
 
-    camera.viewport.add(FpsTextComponent());
+    //camera.viewport.add(FpsTextComponent());
     await world.add(Player());
     await world.addAll(createBoundaries());
 
@@ -37,11 +38,11 @@ class MyGame extends Forge2DGame {
   }
 
   void finishGame() {
-    onGameOver(score);
+    onGameOver(score.value);
   }
 
   void incrementScore() {
-    score++;
+    score.value++;
   }
 
   Future<void> addEnemy() async {

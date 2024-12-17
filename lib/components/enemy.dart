@@ -7,16 +7,31 @@ import 'package:flutter/material.dart';
 
 class Enemy extends BodyComponentWithUserData with ContactCallbacks {
   final double radius;
-  final Color color;
   final Vector2 initialPosition;
   final double speed; // Speed multiplier
+  late final Paint _enemyPaint;
 
   Enemy({
     required this.initialPosition,
     this.radius = 3.0,
-    this.color = Colors.red,
     this.speed = 40.0, // Default speed
   });
+
+  @override
+  Future<void> onLoad() async {
+    super.onLoad();
+
+    // Set up the paint for the glowing effect
+    _enemyPaint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          Colors.greenAccent,
+          Colors.black,
+        ],
+        stops: [0.4, 1.0],
+      ).createShader(Rect.fromCircle(center: Offset.zero, radius: radius))
+      ..style = PaintingStyle.fill;
+  }
 
   @override
   Body createBody() {
@@ -34,6 +49,29 @@ class Enemy extends BodyComponentWithUserData with ContactCallbacks {
       ..friction = 0.0;
 
     return world.createBody(bodyDef)..createFixture(fixtureDef);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    // Draw the glowing enemy ball
+    canvas.drawCircle(
+      Offset.zero,
+      radius,
+      _enemyPaint,
+    );
+
+    // Add a thin outline for extra detail
+    final borderPaint = Paint()
+      ..color = Colors.greenAccent
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.4;
+    canvas.drawCircle(
+      Offset.zero,
+      radius,
+      borderPaint,
+    );
   }
 
   @override

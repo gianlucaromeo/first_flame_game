@@ -1,3 +1,4 @@
+import 'package:first_flame_game/components/score_card.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,8 +37,11 @@ class _GameScreenState extends State<GameScreen> {
           onPressed: () => Get.back(),
         ),
       ),
-      body: Center(
-        child: GameWidget(game: _game),
+      body: Column(
+        children: [
+          ScoreCard(score: _game.score),
+          Expanded(child: GameWidget(game: _game)),
+        ],
       ),
     );
   }
