@@ -27,12 +27,19 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   Future<void> onLoad() async {
     super.onLoad();
 
-    // Set up the paint for the glowing effect
+    // Set up the paint for the purple gradient effect
     _playerPaint = Paint()
-      ..shader = RadialGradient(
-        colors: [Colors.purpleAccent, Colors.black],
-        stops: [0.5, 1.0],
-      ).createShader(Rect.fromCircle(center: Offset.zero, radius: 4))
+      ..shader = LinearGradient(
+        colors: [Colors.purpleAccent, Colors.deepPurple],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ).createShader(
+        Rect.fromCenter(
+          center: Offset.zero,
+          width: 14,
+          height: 14,
+        ),
+      ) // Adjust size as needed
       ..style = PaintingStyle.fill;
   }
 
@@ -40,9 +47,7 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   void onMount() {
     super.onMount();
 
-    // DO NOT MOVE FROM HERE :)
-    // This safely applies forces AFTER the body is initialized,
-    // otherwise the game will crash for "LateInitializationError" of "body"
+    // Apply an impulse to make the player move
     body.applyLinearImpulse(Vector2(0, -1000));
   }
 
@@ -50,29 +55,14 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    // Draw the player inner square ("circle..") with the glowing effect
+    // Draw the glowing rectangle with a gradient
     canvas.drawRect(
       Rect.fromCenter(
         center: Offset.zero,
-        width: 6,
-        height: 6,
+        width: 7, // Width of the rectangle
+        height: 7, // Height of the rectangle
       ),
       _playerPaint,
-    );
-
-    // Add a border for a futuristic look
-    final borderPaint = Paint()
-      ..color = Colors.purpleAccent
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 0.3;
-
-    canvas.drawRect(
-      Rect.fromCenter(
-        center: Offset.zero,
-        width: 6,
-        height: 6,
-      ),
-      borderPaint,
     );
   }
 

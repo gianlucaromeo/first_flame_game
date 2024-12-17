@@ -37,7 +37,7 @@ class MyGame extends Forge2DGame {
 
     // Add components
     await world.add(GradientBackground());
-    await world.add(Player());
+    await world.add(Player(initialPosition: Vector2(-10, 0)));
     await world.addAll(createBoundaries());
 
     dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -58,7 +58,7 @@ class MyGame extends Forge2DGame {
       Enemy(
         initialPosition: Vector2(
           camera.visibleWorldRect.right,
-          camera.visibleWorldRect.bottom - Random().nextInt(80).toDouble(),
+          camera.visibleWorldRect.bottom - Random().nextInt(100).toDouble(),
         ),
       ),
     );
