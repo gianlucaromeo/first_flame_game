@@ -1,11 +1,12 @@
 import 'package:first_flame_game/components/body_component_with_data.dart';
-import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 
 class Player extends BodyComponentWithUserData with TapCallbacks {
   late final Paint _playerPaint;
+  late final Paint _glowPaint;
+  final double _glowSize = 7.0; // Glow size for the outer effect
 
   Player({Vector2? initialPosition})
       : super(
@@ -27,7 +28,7 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   Future<void> onLoad() async {
     super.onLoad();
 
-    // Set up the paint for the purple gradient effect
+    // Set up the player paint with a smooth gradient
     _playerPaint = Paint()
       ..shader = LinearGradient(
         colors: [Colors.purpleAccent, Colors.deepPurple],
@@ -41,13 +42,23 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
         ),
       ) // Adjust size as needed
       ..style = PaintingStyle.fill;
+
+    // Set up the glow paint for the outer effect
+    _glowPaint = Paint()
+      ..shader = RadialGradient(
+        colors: [
+          Colors.purple.withOpacity(0.5),
+          Colors.deepPurple.withOpacity(0),
+        ],
+        stops: [0.5, 1.0],
+      ).createShader(Rect.fromCircle(center: Offset.zero, radius: _glowSize))
+      ..style = PaintingStyle.fill;
   }
 
   @override
   void onMount() {
     super.onMount();
-
-    // Apply an impulse to make the player move
+    // Apply an impulse to make the player move initially
     body.applyLinearImpulse(Vector2(0, -1000));
   }
 
@@ -55,7 +66,14 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    // Draw the glowing rectangle with a gradient
+    // Draw the glowing outer effect
+    canvas.drawCircle(
+      Offset.zero,
+      _glowSize,
+      _glowPaint,
+    );
+
+    // Draw the player with the gradient fill
     canvas.drawRect(
       Rect.fromCenter(
         center: Offset.zero,
@@ -71,6 +89,7 @@ class Player extends BodyComponentWithUserData with TapCallbacks {
     super.update(dt);
     body.applyLinearImpulse(Vector2(0, 10));
 
+    // Add boundary check to finish the game if out of bounds
     final halfWidth = game.camera.visibleWorldRect.width / 2;
     if (body.position.x < -halfWidth || body.position.x > halfWidth) {
       game.finishGame();

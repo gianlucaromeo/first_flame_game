@@ -34,7 +34,7 @@ class ScoreCard extends StatelessWidget {
                       text: 'Level Complete!',
                     )
                   : Text(
-                      '${secondsLeftToCompleteLevel.value} more seconds to complete level'
+                      '${secondsLeftToCompleteLevel.value} more seconds to complete !'
                           .toUpperCase(),
                       textAlign: TextAlign.center,
                       style: TextStyle(

@@ -38,8 +38,9 @@ class MyGame extends Forge2DGame with TapCallbacks {
     final screenSize = size;
 
     // Adjust camera to fit the screen size dynamically
+    final double width = screenSize.x > 600 ? 600 : screenSize.x;
     camera.viewport = FixedResolutionViewport(
-      resolution: Vector2(screenSize.x, screenSize.y),
+      resolution: Vector2(width, screenSize.y),
     );
 
     // Add components
