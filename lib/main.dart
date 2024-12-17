@@ -1,11 +1,22 @@
+import 'dart:developer';
+
+import 'package:first_flame_game/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import 'screens/welcome_screen.dart';
 
-void main() {
+Future<void> main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(UserData.boxName);
+
   WidgetsFlutterBinding.ensureInitialized();
+
+  log(UserData.getBestScore().toString());
+  log(UserData.getLevelsCompleted().toString());
+  log(UserData.getTotalGamesPlayed().toString());
 
   runApp(
     GetMaterialApp(

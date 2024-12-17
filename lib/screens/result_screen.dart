@@ -1,6 +1,6 @@
 import 'package:first_flame_game/widgets/game_text.dart';
+import 'package:first_flame_game/widgets/statistics.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 import '../widgets/game_button.dart';
@@ -30,6 +30,8 @@ class ResultScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Statistics(),
+              const SizedBox(height: 80),
               GameTitle(
                 text: 'G A M E\nO V E R',
               ),
@@ -37,7 +39,7 @@ class ResultScreen extends StatelessWidget {
               GameText(
                 text: 'Your score: $score',
               ),
-              const SizedBox(height: 45),
+              const SizedBox(height: 80),
               GameButton(
                 onPressed: () {
                   Get.back();

@@ -1,4 +1,5 @@
 import 'package:first_flame_game/widgets/game_button.dart';
+import 'package:first_flame_game/widgets/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,6 +25,8 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Statistics(),
+              const SizedBox(height: 40),
               GameText(
                 text: 'R E A D Y ?',
               ),
