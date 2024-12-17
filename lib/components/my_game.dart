@@ -2,6 +2,7 @@ import 'dart:async' as dart_async;
 import 'dart:math';
 
 import 'package:first_flame_game/components/enemy.dart';
+import 'package:first_flame_game/components/gradient_background.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
@@ -20,7 +21,7 @@ class MyGame extends Forge2DGame {
           gravity: Vector2(0, 10.0),
           camera: CameraComponent.withFixedResolution(
             width: 800,
-            height: 600,
+            height: 640,
           ),
         );
 
@@ -29,6 +30,7 @@ class MyGame extends Forge2DGame {
     await super.onLoad();
 
     //camera.viewport.add(FpsTextComponent());
+    await world.add(GradientBackground());
     await world.add(Player());
     await world.addAll(createBoundaries());
 
