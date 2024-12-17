@@ -5,30 +5,31 @@ import 'package:first_flame_game/components/enemy.dart';
 import 'package:first_flame_game/components/gradient_background.dart';
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 
 import 'player.dart';
 import 'wall.dart';
-
-class MyGame extends Forge2DGame {
+class MyGame extends Forge2DGame with TapCallbacks{
   final Function(int) onGameOver;
-
   final ValueNotifier<int> score = ValueNotifier(0);
+
+  late final Player player;
 
   MyGame({required this.onGameOver})
       : super(
-          gravity: Vector2(0, 10.0),
-          camera: CameraComponent(),
-        );
+    gravity: Vector2(0, 10.0),
+    camera: CameraComponent(),
+  );
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
 
     // Get screen size
-    final screenSize = size; // size is automatically provided by Flame
+    final screenSize = size;
 
     // Adjust camera to fit the screen size dynamically
     camera.viewport = FixedResolutionViewport(
@@ -37,7 +38,8 @@ class MyGame extends Forge2DGame {
 
     // Add components
     await world.add(GradientBackground());
-    await world.add(Player(initialPosition: Vector2(-10, 0)));
+    player = Player(initialPosition: Vector2(-10, 0)); // Add player here
+    await world.add(player);
     await world.addAll(createBoundaries());
 
     dart_async.Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -75,5 +77,14 @@ class MyGame extends Forge2DGame {
       Wall(topLeft, topRight),
       Wall(bottomLeft, bottomRight),
     ];
+  }
+
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    super.onTapDown(event);
+    player.body.setAwake(true);
+    player.body.applyLinearImpulse(Vector2(0, -1000));
+    player.body.applyAngularImpulse(360);
   }
 }
